@@ -1,5 +1,16 @@
+<form id='search' method='get' action='/quizes'>
+	<input name='search' type='text' placeholder='Búqueda...'/>
+	<input type='submit' value='Búscar'/>
+</form>
+
 <table>
 <% var i; for (i=0; i < quizes.length; i++) { %>
 	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
-	<% } %>
+<% } %>
+
+<% if(quizes.length <= 0){ %>
+	<br>
+	<p>La búsqueda no ha obtenido coincidencias.</p>
+<% } %>
+
 </table>
