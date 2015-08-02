@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/author', function(req, res) {
-  res.render('author', { autor: 'Óscar Soto Sánchez' });
+  res.render('author', { autor: 'Óscar Soto Sánchez', errors: [] });
 });
 
 //Autoload de comandos con :quizId
