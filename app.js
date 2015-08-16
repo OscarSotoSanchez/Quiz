@@ -42,6 +42,30 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Desconexion 2 minutos
+app.use(function(req, res, next) {
+  if (req.session.user) {
+    if (!req.session.ultimaConexion) {
+      req.session.ultimaConexion = new Date().getTime();
+    } else {
+      var tiempoMaximoInactivo = 120000; // 2 minutos
+      var tiempoActual = new Date().getTime();
+
+      if (tiempoActual - req.session.ultimaConexion > tiempoMaximoInactivo) {
+        delete req.session.ultimaConexion;
+        delete req.session.user;
+
+        req.session.errors = [{ message: "---> Su sesión ha caducado."}];
+        res.redirect('/login');
+        return;
+      } else {
+        req.session.ultimaConexion = new Date().getTime();
+      }
+    }
+  }
+  next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
